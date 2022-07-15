@@ -52,7 +52,7 @@ describe('using logging methods', () => {
 
     expect(loggerImplStub[verbosityString]).toHaveBeenCalledTimes(1);
     expect(loggerImplStub[verbosityString]).toHaveBeenCalledWith(
-      expect.stringContaining(`${verbosityString.toUpperCase()} | ${LOGGER_LOCATION} | Something bad happened Oops!`),
+      expect.stringContaining(`${verbosityString.toUpperCase()} | ${LOGGER_LOCATION} | {} | Something bad happened Oops!`),
     );
 
     for (const otherMethod of otherMethods) {
