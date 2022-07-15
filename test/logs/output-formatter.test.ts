@@ -23,6 +23,6 @@ describe('correct argument parsing', () => {
       verbosityString,
     });
 
-    expect(result).toEqual(expect.stringContaining(`${verbosityString.toUpperCase()} | ${LOGGER_LOCATION} | Oops!`));
+    expect(result).toEqual(expect.stringContaining(`${verbosityString.toUpperCase()} | ${LOGGER_LOCATION} | {} | Oops!`));
   });
 });
