@@ -16,8 +16,14 @@ export default class DefaultOutputFormatter implements OutputFormatter {
   public format({ location, metadata, parsedArgs, verbosityString }: FormatParameters): string {
     const nowISO = new Date().toISOString();
 
-    const log = [nowISO, verbosityString.toUpperCase(), location, tryToStringifyJSON(metadata), parsedArgs.join(' ')];
+    const outputParts = [
+      nowISO,
+      verbosityString.toUpperCase(),
+      location,
+      tryToStringifyJSON(metadata),
+      parsedArgs.join(' '),
+    ];
 
-    return log.join(' | ');
+    return outputParts.join(' | ');
   }
 }
