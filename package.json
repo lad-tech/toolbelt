@@ -1,6 +1,6 @@
 {
   "name": "@lad-tech/toolbelt",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A set of tools for Node.js development",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
