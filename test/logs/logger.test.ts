@@ -63,7 +63,7 @@ describe('using logging methods', () => {
     }
   });
 
-  it.each(LOG_VERBOSITY)('At each level of logging, the log is correctly', (verbosity) => {
+  it.each(LOG_VERBOSITY)('should use the correct logging level', (verbosity) => {
     logger.setLogger(loggerImplStub).setVerbosity(verbosity);
 
     for (const otherMethod of LOG_VERBOSITY) {
