@@ -139,7 +139,7 @@ export default class Logger {
         }
       }
 
-      const verbosityString = LOGGER_METHODS_BY_VERBOSITY[this.verbosity_];
+      const verbosityString = LOGGER_METHODS_BY_VERBOSITY[verbosity];
 
       const output = this.outputFormatter_.format({
         parsedArgs,

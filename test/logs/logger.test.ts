@@ -33,9 +33,10 @@ describe('using logging methods', () => {
     jest.resetAllMocks();
   });
 
+  const err = new Error('Oops!');
+  const loggerImplStub = makeLoggerImplStub();
+
   it.each(LOG_VERBOSITY)('should correctly log the message', (verbosity) => {
-    const err = new Error('Oops!');
-    const loggerImplStub = makeLoggerImplStub();
     const verbosityString = LOGGER_METHODS_BY_VERBOSITY[verbosity];
     const otherMethods = new Set([
       LogVerbosity.TRACE,
@@ -59,6 +60,23 @@ describe('using logging methods', () => {
       const method = LOGGER_METHODS_BY_VERBOSITY[otherMethod];
 
       expect(loggerImplStub[method]).not.toHaveBeenCalled();
+    }
+  });
+
+  it.each(LOG_VERBOSITY)('should use the correct logging level', (verbosity) => {
+    logger.setLogger(loggerImplStub).setVerbosity(verbosity);
+
+    for (const otherMethod of LOG_VERBOSITY) {
+      const method = LOGGER_METHODS_BY_VERBOSITY[otherMethod];
+
+      logger[method]('Something bad happened', err);
+
+      if (otherMethod >= verbosity) {
+        expect(loggerImplStub[method]).toHaveBeenCalledTimes(1);
+        expect(loggerImplStub[method]).toHaveBeenCalledWith(expect.stringContaining(method.toUpperCase()));
+      } else {
+        expect(loggerImplStub[method]).not.toHaveBeenCalled();
+      }
     }
   });
 });
