@@ -1,0 +1,28 @@
+name: Workflow
+on:
+  push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install deps
+        run: npm i
+      - name: Test
+        run: npm run test
+      - name: Build
+        run: npm run build
+      - name: Push to NPM
+        if: ${{github.ref == 'refs/heads/main'}}
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Coveralls
+        if: ${{github.ref == 'refs/heads/main'}}
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
