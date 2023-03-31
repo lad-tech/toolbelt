@@ -96,12 +96,12 @@ export class TDate extends Date {
     return this.add(-amount, unit);
   }
 
-  public isBefore(date: Date) {
-    return this < date;
+  public isBefore(date: Date, shiftInMilliseconds: number = 0) {
+    return +this + shiftInMilliseconds < +date;
   }
 
-  public isAfter(date: Date) {
-    return this > date;
+  public isAfter(date: Date, shiftInMilliseconds: number = 0) {
+    return +this - shiftInMilliseconds > +date;
   }
 
   public isBetween(start: Date, end: Date) {
