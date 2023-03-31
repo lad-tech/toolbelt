@@ -97,20 +97,32 @@ describe('TDate', () => {
   });
 
   describe('isBefore', () => {
-    test('Если TDate меньше чем целевая дата возврашается true', () => {
+    test('if TDate is less than the target date, returned true', () => {
       expect(new TDate().isBefore(new Date('2090-01-01'))).toBeTruthy();
     });
-    test('Если TDate больше чем целевая дата возврашается false', () => {
+    test('if TDate is greater than the target date, returned false', () => {
       expect(new TDate().isBefore(new Date('1890-01-01'))).toBeFalsy();
     });
+    test('if TDate with shift is less than the target date, returned true', () => {
+      expect(new TDate().isBefore(new Date('2023-03-03 18:05:31'), 1000)).toBeTruthy();
+    })
+    test('if TDate with shift is greater than the target date, returned false', () => {
+      expect(new TDate().isBefore(new Date('2023-03-03 15:01:31'), 5000)).toBeFalsy();
+    })
   });
 
   describe('isAfter', () => {
-    test('if TDate is less than the target date, returned false.', () => {
+    test('if TDate is less than the target date, returned false', () => {
       expect(new TDate().isAfter(new Date('2090-01-01'))).toBeFalsy();
     });
-    test('if TDate is greater than the target date, returned true.', () => {
+    test('if TDate is greater than the target date, returned true', () => {
       expect(new TDate().isAfter(new Date('1890-01-01'))).toBeTruthy();
+    });
+    test('if TDate with shift is less than the target date, returned false', () => {
+      expect(new TDate().isAfter(new Date('2023-03-03 19:10:20'), 1000)).toBeFalsy();
+    });
+    test('if TDate with shift is greater than the target date, returned true', () => {
+      expect(new TDate().isAfter(new Date('2023-03-03 15:00:31'), 1000)).toBeTruthy();
     });
   });
 
